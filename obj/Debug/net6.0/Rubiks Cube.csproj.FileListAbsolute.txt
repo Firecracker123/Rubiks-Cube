@@ -1,0 +1,15 @@
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.csproj.AssemblyReference.cache
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.GeneratedMSBuildEditorConfig.editorconfig
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.AssemblyInfoInputs.cache
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.AssemblyInfo.cs
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.csproj.CoreCompileInputs.cache
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/Rubiks Cube
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/Rubiks Cube.deps.json
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/Rubiks Cube.runtimeconfig.json
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/Rubiks Cube.dll
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/ref/Rubiks Cube.dll
+/home/aidanbush/Desktop/C#/Rubiks Cube/bin/Debug/net6.0/Rubiks Cube.pdb
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.dll
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/ref/Rubiks Cube.dll
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.pdb
+/home/aidanbush/Desktop/C#/Rubiks Cube/obj/Debug/net6.0/Rubiks Cube.genruntimeconfig.cache
