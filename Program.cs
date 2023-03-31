@@ -277,9 +277,16 @@ public class rubiksCube
     }
    }
 
+    //When the user flips the cube vertically
    static void horizontalChange(int row, string rotationDirection)
    {
+        for (int side = 0; side < 6; side++)
+        {
+            for (int cube = 0; side < 3; cube++)
+            {
 
+            }
+        }
    }
 
     static int findRowIndex(string direction, string row)
