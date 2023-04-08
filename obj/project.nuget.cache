@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xA3SPDL2L3jJyG/Oe2o/qgJ7qZC+H/cN8FIxT0vQ9N4LYgf0Iy6x38DjrB3p3FNIM5ZqFt0I0ct/UVBy9HbU+g==",
+  "dgSpecHash": "oJT2d7nN2ekws2OoISdPeNi1s3/URLQ8glt8LKmGnSA4A8kl29rGURCpaVq6oR46uLpFmPenvh51g0/RHH85Ig==",
   "success": true,
-  "projectFilePath": "/home/aidanbush/Desktop/C#/Rubiks Cube/Rubiks Cube.csproj",
+  "projectFilePath": "C:\\Users\\aidan\\source\\repos\\Rubiks-Cube\\Rubiks Cube.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

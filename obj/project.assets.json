@@ -8,24 +8,31 @@
     "net6.0": []
   },
   "packageFolders": {
-    "/home/aidanbush/.nuget/packages/": {}
+    "C:\\Users\\aidan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aidanbush/Desktop/C#/Rubiks Cube/Rubiks Cube.csproj",
+      "projectUniqueName": "C:\\Users\\aidan\\source\\repos\\Rubiks-Cube\\Rubiks Cube.csproj",
       "projectName": "Rubiks Cube",
-      "projectPath": "/home/aidanbush/Desktop/C#/Rubiks Cube/Rubiks Cube.csproj",
-      "packagesPath": "/home/aidanbush/.nuget/packages/",
-      "outputPath": "/home/aidanbush/Desktop/C#/Rubiks Cube/obj/",
+      "projectPath": "C:\\Users\\aidan\\source\\repos\\Rubiks-Cube\\Rubiks Cube.csproj",
+      "packagesPath": "C:\\Users\\aidan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aidan\\source\\repos\\Rubiks-Cube\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/aidanbush/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\aidan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -49,7 +56,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -58,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

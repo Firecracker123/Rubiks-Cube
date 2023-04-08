@@ -108,7 +108,7 @@ public class rubiksCube
     public void displaySide(string face)
     {
         
-        int  faceIndex = 0;
+        int  faceIndex = -1;
 
         if (face.ToUpper() == "FRONT")
         {
@@ -135,13 +135,16 @@ public class rubiksCube
             faceIndex = 5;
         }
 
-        for (int x = 0; x < 3; x++)
+        if (faceIndex != -1)
         {
-            Console.WriteLine("");
-            for (int y = 0; y < 3; y++)
+            for (int x = 0; x < 3; x++)
             {
-                consoleColor(this.sides[faceIndex, x, y]);
-                Console.Write("■");
+                Console.WriteLine("");
+                for (int y = 0; y < 3; y++)
+                {
+                    consoleColor(this.sides[faceIndex, x, y]);
+                    Console.Write("■");
+                }
             }
         }
 
@@ -221,7 +224,7 @@ public class rubiksCube
 
             if (direction == "VERTICAL")
             {
-              verticalChange(rowIndex, rotationalDirection);
+                verticalChange(rowIndex, rotationalDirection);
             }
             else
             {
@@ -269,7 +272,7 @@ public class rubiksCube
    {
     if (rotationDirection == "UP")
     {
-        
+
     }
     else
     {
@@ -280,12 +283,24 @@ public class rubiksCube
     //When the user flips the cube vertically
    static void horizontalChange(int row, string rotationDirection)
    {
-        for (int side = 0; side < 6; side++)
-        {
-            for (int cube = 0; side < 3; cube++)
-            {
+        int[] temp = {0, 0, 0};
 
+        temp[0] = this.sides[0, 0, 0];
+
+
+        if (rotationDirection == "RIGHT")
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+
+                }
             }
+        }
+        else
+        {
+
         }
    }
 
