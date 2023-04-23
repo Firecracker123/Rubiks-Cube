@@ -8,14 +8,48 @@ namespace cubetime
         static void Main(string[] args)
         {
             rubiksCube cube = new rubiksCube();
+            cube.displayCube();
+
+            
 
             string userInput = " ";
 
             while (userInput.ToUpper() != "STOP")
             {
+                
+                //Displays entire cube initally
+                
+
+                Console.WriteLine("Would you like to view the cube or change it? (Enter change or view)");
+                userInput = Console.ReadLine().ToUpper();
+
+
+
+                if (userInput == "VIEW")
+                {
                 Console.WriteLine("Enter a side to view: from front, top, bottom, left, right or back");
                 userInput = Console.ReadLine();
                 cube.displaySide(userInput);
+                }
+                else if (userInput == "CHANGE")
+                {
+                    Console.WriteLine("Enter Direction (horizontal or vertical)");
+                    string? direction = Console.ReadLine();
+
+                    if (direction.ToUpper() == "VERTICAL")
+                    {
+                        Console.WriteLine("Enter row that you want to rotate. (RIGHT, MIDDLE OR LEFT)");
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Enter row that you want to rotate. (TOP, MIDDLE or BOTTOM)");
+                    }
+                    
+                    
+                    string? row = Console.ReadLine();
+
+                    cube.changeCube2(direction, row);
+                }
             }
         }
     }
@@ -30,7 +64,7 @@ namespace cubetime
     
 public class rubiksCube
 {
-    protected string[,,] sides = new string[6, 3, 3];
+    public string[,,] sides = new string[6, 3, 3];
     colours[] sideColours = new colours[6];
 
     public rubiksCube()
@@ -84,6 +118,8 @@ public class rubiksCube
 
     public void displayCube()
     {
+        string xStr = "";
+        string yStr = "";
 
         for (int sides = 0; sides < 6; sides++)
         {
@@ -94,6 +130,10 @@ public class rubiksCube
                 Console.Write("\n");
                 for (int y = 0; y < 3; y++)
                 {
+                    xStr = Convert.ToString(x);
+                    yStr = Convert.ToString(y);
+
+                    Console.Write(x + "," + y + "," + sides);
                     consoleColor(this.sides[sides, x, y]);
                     Console.Write("■");
                 }
@@ -190,9 +230,9 @@ public class rubiksCube
                     
                     
 
-                    while (finalDirection != "UP" || finalDirection != "DOWN")
+                    while (finalDirectionValid)
                     {
-                        Console.WriteLine("Would you like to rotate this section up or down (Enter up or down)");
+                        Console.WriteLine("Would you like to rotate this section UP or DOWN (Enter up or down)");
                         finalDirection = Console.ReadLine();
 
                         if (finalDirection.ToUpper() == "UP")
@@ -222,14 +262,8 @@ public class rubiksCube
         {
             string rotationalDirection = getDirection(direction);
 
-            if (direction == "VERTICAL")
-            {
-                verticalChange(rowIndex, rotationalDirection);
-            }
-            else
-            {
-                horizontalChange(rowIndex, rotationalDirection);
-            }
+                makeChange(rowIndex, rotationalDirection, direction.ToUpper());
+            
         }
 
     }
@@ -238,11 +272,11 @@ public class rubiksCube
    static string getDirection(string direction)
    {
     bool directionValid = false;
-    string actualDirection = "";
+    string? actualDirection = "";
     string option1 = "";
     string option2 = "";
 
-    if (direction == "VERTICAL")
+    if (direction.ToUpper() == "VERTICAL")
     {
         option1 = "UP";
         option2 = "DOWN";
@@ -258,9 +292,9 @@ public class rubiksCube
         {
             Console.WriteLine("Would you like to roate this section " + option1 +  " or " + option2);
             actualDirection = Console.ReadLine();
-            if (direction == option1 || direction == option2)
+            if (actualDirection.ToUpper() == option1 || actualDirection.ToUpper() == option2)
             {
-                return actualDirection;
+                return actualDirection.ToUpper();
             }
         }
     
@@ -281,32 +315,105 @@ public class rubiksCube
    }
 
     //When the user flips the cube vertically
-   static void horizontalChange(int row, string rotationDirection)
+   private void makeChange(int row, string rotationDirection, string flipDirection)
    {
-        int[] temp = {0, 0, 0};
+        string[] curTemp = {"", "", ""};
+        string[] nextTemp = {"", "", ""};
+        int sideLoopCount = 0;
+        int[] faceIndicies = {0, 0, 0, 0};
 
-        temp[0] = this.sides[0, 0, 0];
-
-
-        if (rotationDirection == "RIGHT")
+        if (rotationDirection == "LEFT")
         {
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
+            int[] referenceArray = {0, 1, 2, 3};
+            referenceArray.CopyTo(faceIndicies, 0);
+        }
+        else if (rotationDirection == "RIGHT")
+        {
+            int[] referenceArray = {0, 3, 2, 1};
+            referenceArray.CopyTo(faceIndicies, 0);
+        }
+        else if (rotationDirection == "UP")
+        {
+            int[] referenceArray = {0, 4, 2, 5};
+            referenceArray.CopyTo(faceIndicies, 0);
+        }
+        else if (rotationDirection == "DOWN")
+        {
+            int[] referenceArray = {0, 5, 2, 4};
+            referenceArray.CopyTo(faceIndicies, 0);
+        }
 
-                }
+        //Stores each of the sides sqaures of the front face (face 0) in a temp string before they get moved
+        curTemp[0] = this.sides[0, row, 0];
+        curTemp[1] = this.sides[0, row, 1];
+        curTemp[2] = this.sides[0, row, 2];
+
+        Console.WriteLine("temp 0 " + curTemp[0] + " temp 1 " + curTemp[1] + " temp 2 " + curTemp[2]);
+
+        if (flipDirection == "HORIZONTAL")
+        {
+             curTemp[0] = this.sides[0, row, 0];
+             curTemp[1] = this.sides[0, row, 1];
+             curTemp[2] = this.sides[0, row, 2];
+
+            foreach (int side in faceIndicies)
+            {
+                //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
+                 for (int rowNo = 0; rowNo < 3; rowNo++)
+                 {
+                    if (sideLoopCount < 3)
+                    {
+                        nextTemp[rowNo] = sides[side + 1, row, rowNo];
+                        Console.WriteLine("Replacing " + sides[side + 1, row, rowNo] + " with " + curTemp[rowNo]);
+                        sides[side + 1, row, rowNo] = curTemp[rowNo];
+                        curTemp[rowNo] = nextTemp[rowNo];
+                    }
+                    else 
+                    {
+                         this.sides[0, row, rowNo] = curTemp[rowNo]; 
+                         Console.WriteLine("Hi");
+                        
+                    }
+                 }
+                 //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
+                sideLoopCount++;
             }
         }
         else
         {
-
+             curTemp[0] = this.sides[0, 0, row];
+             curTemp[1] = this.sides[0, 1, row];
+             curTemp[2] = this.sides[0, 2, row];
+             
+          foreach (int side in faceIndicies)
+            {
+                //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
+                 for (int rowNo = 0; rowNo < 3; rowNo++)
+                 {
+                    if (sideLoopCount < 3)
+                    {
+                        nextTemp[rowNo] = sides[side + 1, rowNo, row];
+                        Console.WriteLine("Replacing " + sides[side + 1, row, rowNo] + " with " + curTemp[rowNo]);
+                        sides[side + 1, rowNo, row] = curTemp[rowNo];
+                        curTemp[rowNo] = nextTemp[rowNo];
+                    }
+                    else 
+                    {
+                         this.sides[0, rowNo, row] = curTemp[rowNo]; 
+                         Console.WriteLine("Hi");
+                        
+                    }
+                 }
+                 //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
+                sideLoopCount++;
+            }  
         }
    }
 
-    static int findRowIndex(string direction, string row)
+    private int findRowIndex(string direction, string row)
     {
         direction = direction.ToUpper();
+        row = row.ToUpper();
 
         
         if (direction == "STOP")
@@ -348,7 +455,7 @@ public class rubiksCube
     }
 
 
-    static void consoleColor(string colourString)
+    private void consoleColor(string colourString)
     {
         if (colourString == "white")
         {
