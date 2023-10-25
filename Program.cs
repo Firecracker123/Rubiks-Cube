@@ -2,16 +2,11 @@
 
 namespace cubetime 
 {
-
     class cubeRunner
     {
         static void Main(string[] args)
         {
-            rubiksCube cube = new rubiksCube();
-            cube.displayCube();
-
-            
-
+            rubiksCube cube = new rubiksCube();      
             string userInput = " ";
 
             while (userInput.ToUpper() != "STOP")
@@ -118,6 +113,16 @@ public class rubiksCube
 
     public void displayCube()
     {
+        var console_colours = new Dictionary<string, System.ConsoleColor>
+        {
+            {"white", ConsoleColor.White},
+            {"blue", ConsoleColor.Blue},
+            {"red", ConsoleColor.Red},
+            {"yellow", ConsoleColor.Yellow},
+            {"magenta", ConsoleColor.Magenta},
+            {"green", ConsoleColor.Green},
+            
+        };
         string xStr = "";
         string yStr = "";
 
@@ -133,8 +138,7 @@ public class rubiksCube
                     xStr = Convert.ToString(x);
                     yStr = Convert.ToString(y);
 
-                    Console.Write(x + "," + y + "," + sides);
-                    consoleColor(this.sides[sides, x, y]);
+                    Console.ForegroundColor = console_colours[this.sides[sides, x, y]];
                     Console.Write("■");
                 }
             }
@@ -147,6 +151,17 @@ public class rubiksCube
 
     public void displaySide(string face)
     {
+        var console_colours = new Dictionary<string, System.ConsoleColor>
+        {
+            {"white", ConsoleColor.White},
+            {"blue", ConsoleColor.Blue},
+            {"red", ConsoleColor.Red},
+            {"yellow", ConsoleColor.Yellow},
+            {"magenta", ConsoleColor.Magenta},
+            {"green", ConsoleColor.Green},
+            
+        };
+        
         
         int  faceIndex = -1;
 
@@ -175,6 +190,8 @@ public class rubiksCube
             faceIndex = 5;
         }
 
+        
+
         if (faceIndex != -1)
         {
             for (int x = 0; x < 3; x++)
@@ -182,7 +199,7 @@ public class rubiksCube
                 Console.WriteLine("");
                 for (int y = 0; y < 3; y++)
                 {
-                    consoleColor(this.sides[faceIndex, x, y]);
+                    Console.ForegroundColor = console_colours[this.sides[faceIndex, x, y]];
                     Console.Write("■");
                 }
             }
@@ -302,19 +319,7 @@ public class rubiksCube
     return "";
    }
 
-   static void verticalChange(int row, string rotationDirection)
-   {
-    if (rotationDirection == "UP")
-    {
 
-    }
-    else
-    {
-
-    }
-   }
-
-    //When the user flips the cube vertically
    private void makeChange(int row, string rotationDirection, string flipDirection)
    {
         string[] curTemp = {"", "", ""};
@@ -322,6 +327,7 @@ public class rubiksCube
         int sideLoopCount = 0;
         int[] faceIndicies = {0, 0, 0, 0};
 
+        //Sets the sequence of faces that are going to be swapped
         if (rotationDirection == "LEFT")
         {
             int[] referenceArray = {0, 1, 2, 3};
@@ -356,26 +362,24 @@ public class rubiksCube
              curTemp[1] = this.sides[0, row, 1];
              curTemp[2] = this.sides[0, row, 2];
 
+
+            //I can't remember how this works
             foreach (int side in faceIndicies)
             {
-                //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
                  for (int rowNo = 0; rowNo < 3; rowNo++)
                  {
                     if (sideLoopCount < 3)
                     {
                         nextTemp[rowNo] = sides[side + 1, row, rowNo];
-                        Console.WriteLine("Replacing " + sides[side + 1, row, rowNo] + " with " + curTemp[rowNo]);
                         sides[side + 1, row, rowNo] = curTemp[rowNo];
                         curTemp[rowNo] = nextTemp[rowNo];
                     }
                     else 
                     {
                          this.sides[0, row, rowNo] = curTemp[rowNo]; 
-                         Console.WriteLine("Hi");
                         
                     }
                  }
-                 //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
                 sideLoopCount++;
             }
         }
@@ -387,31 +391,28 @@ public class rubiksCube
              
           foreach (int side in faceIndicies)
             {
-                //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
                  for (int rowNo = 0; rowNo < 3; rowNo++)
                  {
                     if (sideLoopCount < 3)
                     {
                         nextTemp[rowNo] = sides[side + 1, rowNo, row];
-                        Console.WriteLine("Replacing " + sides[side + 1, row, rowNo] + " with " + curTemp[rowNo]);
                         sides[side + 1, rowNo, row] = curTemp[rowNo];
                         curTemp[rowNo] = nextTemp[rowNo];
                     }
                     else 
                     {
-                         this.sides[0, rowNo, row] = curTemp[rowNo]; 
-                         Console.WriteLine("Hi");
-                        
+                         this.sides[0, rowNo, row] = curTemp[rowNo];                         
                     }
                  }
-                 //Console.WriteLine("Side " + side + "has colours " + this.sides[side + 2, row, 0] + ", " + this.sides[side + 2, row, 1] + ", " + this.sides[side + 2, row, 2]);
                 sideLoopCount++;
             }  
         }
    }
-
+    
+    //Finds the index of the face that the user wants to find
     private int findRowIndex(string direction, string row)
     {
+        //Upper case means that it doesn't matter where the user puts their uppercase characters
         direction = direction.ToUpper();
         row = row.ToUpper();
 
@@ -454,35 +455,7 @@ public class rubiksCube
         return -1;
     }
 
-
-    private void consoleColor(string colourString)
-    {
-        if (colourString == "white")
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-        else if (colourString == "blue")
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-        }
-        else if (colourString == "red")
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-        }
-        else if (colourString == "yellow")
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-        }
-        else if (colourString == "magenta")
-        {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-        }
-        else if (colourString == "green")
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-        }
-
-    }
+  
 }
 
 
