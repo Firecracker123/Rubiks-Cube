@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic;
 
 namespace cubetime 
 {
@@ -161,35 +162,20 @@ public class rubiksCube
             {"green", ConsoleColor.Green},
             
         };
+
+        var face_index_values = new Dictionary<string, int>
+        {
+            {"FRONT", 0},
+            {"LEFT", 1},
+            {"BACK", 2},
+            {"RIGHT", 3},
+            {"BOTTOM", 4},
+            {"TOP", 5}
+        };
         
         
         int  faceIndex = -1;
-
-        if (face.ToUpper() == "FRONT")
-        {
-            faceIndex = 0;
-        }
-        else if (face.ToUpper() == "LEFT")
-        {
-            faceIndex = 1;
-        }
-        else if (face.ToUpper() == "BACK")
-        {
-            faceIndex = 2;
-        }
-        else if (face.ToUpper() == "RIGHT")
-        {
-            faceIndex = 3;
-        }
-        else if (face.ToUpper() == "BOTTOM")
-        {
-            faceIndex = 4;
-        }
-        else if (face.ToUpper() == "TOP")
-        {
-            faceIndex = 5;
-        }
-
+        faceIndex = face_index_values[face.ToUpper()];
         
 
         if (faceIndex != -1)
@@ -307,7 +293,7 @@ public class rubiksCube
 
         while (!directionValid)
         {
-            Console.WriteLine("Would you like to roate this section " + option1 +  " or " + option2);
+            Console.WriteLine($"Would you like to roate this section {option1} or {option2}");
             actualDirection = Console.ReadLine();
             if (actualDirection.ToUpper() == option1 || actualDirection.ToUpper() == option2)
             {
@@ -327,27 +313,8 @@ public class rubiksCube
         int sideLoopCount = 0;
         int[] faceIndicies = {0, 0, 0, 0};
 
-        //Sets the sequence of faces that are going to be swapped
-        if (rotationDirection == "LEFT")
-        {
-            int[] referenceArray = {0, 1, 2, 3};
-            referenceArray.CopyTo(faceIndicies, 0);
-        }
-        else if (rotationDirection == "RIGHT")
-        {
-            int[] referenceArray = {0, 3, 2, 1};
-            referenceArray.CopyTo(faceIndicies, 0);
-        }
-        else if (rotationDirection == "UP")
-        {
-            int[] referenceArray = {0, 4, 2, 5};
-            referenceArray.CopyTo(faceIndicies, 0);
-        }
-        else if (rotationDirection == "DOWN")
-        {
-            int[] referenceArray = {0, 5, 2, 4};
-            referenceArray.CopyTo(faceIndicies, 0);
-        }
+               
+
 
         //Stores each of the sides sqaures of the front face (face 0) in a temp string before they get moved
         curTemp[0] = this.sides[0, row, 0];
@@ -356,6 +323,13 @@ public class rubiksCube
 
         Console.WriteLine("temp 0 " + curTemp[0] + " temp 1 " + curTemp[1] + " temp 2 " + curTemp[2]);
 
+        var swap_sequence = new Dictionary<string, int[]>{
+            {"LEFT", new int[] {0, 1, 2, 3}},
+            {"RIGHT", new int[] {0, 3, 2, 1}},
+            {"UP", new int[] {0, 4, 2, 5}},
+            {"DOWN", new int[] {0, 5, 2, 4}},
+        }; 
+
         if (flipDirection == "HORIZONTAL")
         {
              curTemp[0] = this.sides[0, row, 0];
@@ -363,8 +337,8 @@ public class rubiksCube
              curTemp[2] = this.sides[0, row, 2];
 
 
-            //I can't remember how this works
-            foreach (int side in faceIndicies)
+            //I can't remember how this works - several months later still don't know
+            foreach (int side in swap_sequence[rotationDirection])
             {
                  for (int rowNo = 0; rowNo < 3; rowNo++)
                  {
@@ -416,43 +390,17 @@ public class rubiksCube
         direction = direction.ToUpper();
         row = row.ToUpper();
 
-        
-        if (direction == "STOP")
+       
+
+        if (direction == "STOP") return -1;
+
+         var direction_dictionary = new Dictionary<string, Dictionary<string, int>>
         {
-            return -1;
-        }
-        else if (direction == "VERTICAL")
-        {
-            if (row == "RIGHT")
-            {
-                return 0;
-            }
-            else if (row == "MIDDLE")
-            {
-                return 1;
-            }
-            else if (row == "LEFT")
-            {
-                return 3;
-            }
-        }
-        else if (direction == "HORIZONTAL")
-        {
-            if (row == "TOP")
-            {
-                return 0;
-            }
-            else if (row == "MIDDLE")
-            {
-                return 1;
-            }
-            else if (row == "BOTTOM")
-            {
-                return 3;
-            }
-        }
-        
-        return -1;
+          {"VERTICAL", new Dictionary<string, int> {{"RIGHT", 0}, {"MIDDLE", 1}, {"LEFT", 2}}},
+          {"HORIZONTAL", new Dictionary<string, int> {{"TOP", 0}, {"MIDDLE", 1}, {"BOTTOM", 2}}}
+        };
+
+        return direction_dictionary[direction][row];
     }
 
   
